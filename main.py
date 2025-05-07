@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QApplication
 
 from model.Delays import TimeDelay
+from model.interfaces import Delay
 from view.main_window import MainWindow
 import sys
 
@@ -26,9 +27,12 @@ def on_time_signal():
     app.quit()
 
 
+def start_delay(delay: Delay):
+    delay.start()
+
+
 time_delay = TimeDelay(duration_ms=10000, callback=on_time_done)
-time_delay.completed.connect(on_time_signal)
-time_delay.start()
+start_delay(time_delay)
 
 # Start the event loop.
 sys.exit(app.exec())
